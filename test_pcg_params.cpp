@@ -1,11 +1,9 @@
-#include "octave/oct.hpp"
-#include "octave/parse.hpp"
+#include "octave/oct.h"
+#include "octave/parse.h"
 #include <vector>
-#include <thread>
 #include <limits>
-#include <ctime>
 
-inline octave_value_list pcg(Matrix A, ColumnVector b, double tol, int max_iter, octave_value_list &result)
+void pcg(Matrix &A, ColumnVector &b, double tol, int max_iter, octave_value_list &result)
 {
     octave_value_list cgin;
     cgin(0) = A;
@@ -13,7 +11,7 @@ inline octave_value_list pcg(Matrix A, ColumnVector b, double tol, int max_iter,
     cgin(2) = tol;
     cgin(3) = max_iter;
 
-    result = octave::feval(cgin);
+    result = octave::feval("pcg", cgin);
 }
 
 struct CGInput
@@ -42,7 +40,7 @@ DEFUN_DLD(test_pcg_params, args, nargout, "Tests the best parameters for the Con
         }
     }
 
-    unsigned max_threads = std::thread::hardware_concurrency();
+    /*unsigned max_threads = std::thread::hardware_concurrency();
     max_threads = max_threads / 2 + 1;
     int executions = 0;
     std::vector<std::thread> threads;
@@ -50,7 +48,7 @@ DEFUN_DLD(test_pcg_params, args, nargout, "Tests the best parameters for the Con
     while (executions < inputs.size())
     {
         octave_value_list result;
-        std::thread t(pcg, A, b, inputs[executions].tol, inputs[executions].max_iter, result);
+        std::thread t(&pcg, A, b, inputs[executions].tol, inputs[executions].max_iter, std::ref(result));
         results.push_back(result);
         threads.push_back(t);
         if (threads.size() == max_threads)
@@ -62,6 +60,13 @@ DEFUN_DLD(test_pcg_params, args, nargout, "Tests the best parameters for the Con
             }
             threads.clear();
         }
+    }*/
+    std::vector<octave_value_list> results;
+    for (CGInput cgin : inputs)
+    {
+        octave_value_list result;
+        pcg(A, b, cgin.tol, cgin.max_iter, result);
+        results.push_back(result);
     }
 
     double best_relres = std::numeric_limits<double>::max();
