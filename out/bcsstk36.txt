@@ -1,0 +1,7 @@
+n = 23052
+nnz = 1143140
+flag = 1
+iterations = 0
+sol. norm = 0.000000
+tol = 0.000010
+maxit = 1000
