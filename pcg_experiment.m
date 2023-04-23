@@ -1,5 +1,6 @@
 function pcg_experiment()
-    matrices = {"mesh3em5", "plat362", "662_bus", "s1rmq4m1", "bcsstk36", "pdb1HYS", "Dubcova3"};
+    # matrices = {"mesh3em5", "plat362", "662_bus", "s1rmq4m1", "bcsstk36", "pdb1HYS", "Dubcova3"};
+    matrices = {"mesh3em5", "plat362", "662_bus"};
 
     tols = [10e-6, 10e-7, 10e-8, 10e-9, 10e-10, 10e-11];
 

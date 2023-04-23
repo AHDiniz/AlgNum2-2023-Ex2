@@ -1,7 +1,7 @@
 n = 289
 nnz = 1377
-flag = 0
-iterations = 1
-sol. norm = 1.042151
+flag = 1
+iterations = 100
+sol. norm = 1.055585
 tol = 0.000010
 maxit = 100
