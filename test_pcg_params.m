@@ -14,7 +14,7 @@ function [best_x, best_flag, best_relres, best_iter, best_resvec, best_tol, best
         tol = inputs{i,1};
         maxit = inputs{i,2};
         [x, cflag, relres, iter, resvec] = conjgrad(A, b, tol, maxit);
-        sol_diff = abs(norm(x, inf) - 1);
+        sol_diff = abs(abs(norm(x, inf)) - 1);
         if sol_diff < best_sol_diff
             best_x = x;
             best_flag = cflag;

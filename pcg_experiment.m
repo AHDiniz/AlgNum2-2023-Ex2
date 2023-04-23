@@ -17,7 +17,7 @@ function pcg_experiment()
         matrices{i}
         load(sprintf("in/%s.mat", matrices{i}));
         A = Problem.A;
-        [x, flag, relres, iter, resvec, tol, maxit] = test_pcg_params(A, ones(rows(A), 1), tols, maxit_per_mat{i});
+        [x, flag, relres, iter, resvec, tol, maxit] = test_pcg_params(A, A * ones(rows(A), 1), tols, maxit_per_mat{i});
 
         f = fopen(sprintf("out/%s.txt", matrices{i}), "w");
         fprintf(f, "n = %d\n", rows(A));

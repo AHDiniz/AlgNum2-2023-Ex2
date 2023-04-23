@@ -75,7 +75,8 @@ DEFUN_DLD(conjgrad, args, nargout, "C++ implementation of the Conjugate Gradient
     for (int i = 0; i < n; ++i)
         p(i) = 0.0;
     
-    while (resvec(iter) > tol * b_norm && iter < max_iter)
+    iter = 1;
+    while (resvec(iter - 1) > tol * b_norm && iter < max_iter)
     {
         tau = dot_product(r, r);
         resvec(iter) = sqrt(tau);
