@@ -9,13 +9,13 @@ function [best_x, best_flag, best_relres, best_iter, best_resvec, best_tol, best
         endfor
     endfor
 
-    best_relres = inf;
-    best_flag = 4;
+    best_sol_diff = inf;
     for i = 1 : numel(tols) * numel(maxits)
         tol = inputs{i,1};
         maxit = inputs{i,2};
-        [x, cflag, relres, iter, resvec] = pcg(A, b, tol, maxit);
-        if cflag < best_flag && relres < best_relres
+        [x, cflag, relres, iter, resvec] = conjgrad(A, b, tol, maxit);
+        sol_diff = abs(norm(x, inf) - 1);
+        if sol_diff < best_sol_diff
             best_x = x;
             best_flag = cflag;
             best_relres = relres;
@@ -23,6 +23,7 @@ function [best_x, best_flag, best_relres, best_iter, best_resvec, best_tol, best
             best_resvec = resvec;
             best_tol = tol;
             best_maxit = maxit;
+            best_sol_diff = sol_diff;
         endif
     endfor
 end
