@@ -1,7 +1,7 @@
 n = 362
 nnz = 5786
-flag = 1
-iterations = 600
-sol. norm = 1.678166
-tol = 0.000010
-maxit = 600
+flag = 0
+iterations = 3658
+sol. norm = 1.031502
+tol = 0.000000
+maxit = 5000
