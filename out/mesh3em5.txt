@@ -4,4 +4,4 @@ flag = 0
 iterations = 19
 sol. norm = 1.000000
 tol = 0.000000
-maxit = 1000
+maxit = 100000

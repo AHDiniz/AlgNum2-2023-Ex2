@@ -1,42 +1,33 @@
 function gmres_experiment()
     matrices = {"olm100", "oscil_dcop_02", "cavity05", "coater2", "Dubcova1"};
 
-    ks_per_mat = {
-        [5, 10, 20, 30],
-        [10, 25, 50, 100],
-        [100, 200, 350, 500],
-        [250, 500, 650, 800],
-        [250, 500, 650, 800]
-    };
+    ks = [5, 25, 50, 75];
 
-    tols = [10e-6, 10e-7, 10e-8, 10e-9, 10e-10, 10e-11];
-
-    maxit_per_mat = {
-        [100, 200, 300, 400, 500, 600, 700],
-        [100, 200, 300, 400, 500, 600, 700],
-        [100, 200, 300, 400, 500, 600, 700, 800],
-        [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000],
-        [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
-    };
+    tols = [10e-6, 10e-8, 10e-9, 10e-11];
 
     for i = 1 : numel(matrices)
         matrices{i}
         load(sprintf("in/%s.mat", matrices{i}));
         A = Problem.A;
-        [x, flag, relres, iter, resvec, tol, maxit] = test_gmres_params(A, ones(rows(A), 1), ks_per_mat{i}, tols, maxit_per_mat{i});
+        [x, cflag, relres, iter, resvec, tol, maxit] = test_gmres_params(A, ones(rows(A), 1), ks, tols, 1e5);
 
         f = fopen(sprintf("out/%s.txt", matrices{i}), "w");
         fprintf(f, "n = %d\n", rows(A));
         fprintf(f, "nnz = %d\n", nnz(A));
-        fprintf(f, "flag = %d\n", flag);
+        fprintf(f, "flag = %d\n", cflag);
         fprintf(f, "iterations = %d\n", iter);
         fprintf(f, "sol. norm = %f\n", norm(x, inf));
         fprintf(f, "tol = %f\n", tol);
         fprintf(f, "maxit = %d\n", maxit);
         fclose(f);
 
+        aux_resvec = zeros(iter, 1);
+        for j = 1 : iter
+            aux_resvec(j) = resvec(j);
+        end
+
         hf = figure();
-        plot(1:numel(resvec), resvec);
+        plot(1:iter, log(aux_resvec));
         print(hf, sprintf("out/%s.png", matrices{i}), "-dpng");
     endfor
 end
