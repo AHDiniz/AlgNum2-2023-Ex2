@@ -1,7 +1,7 @@
 n = 23052
 nnz = 1143140
 flag = 1
-iterations = 93737
-sol. norm = 1.299849
+iterations = 96530
+sol. norm = 1.297703
 tol = 0.000000
 maxit = 100000

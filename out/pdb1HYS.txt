@@ -1,0 +1,7 @@
+n = 36417
+nnz = 4344765
+flag = 3
+iterations = 5907
+sol. norm = 1.000001
+tol = 0.000000
+maxit = 100000
