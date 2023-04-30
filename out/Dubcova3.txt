@@ -3,5 +3,5 @@ nnz = 3636643
 flag = 0
 iterations = 214
 sol. norm = 1.000000
-tol = 0.000000
+tol = 1.000000e-10
 maxit = 100000

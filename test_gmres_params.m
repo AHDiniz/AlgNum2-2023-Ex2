@@ -17,7 +17,10 @@ function [best_x, best_flag, best_relres, best_iter, best_resvec, best_k, best_t
         k = inputs{i,1};
         tol = inputs{i,2};
         maxit = inputs{i,3};
+        printf("k = %d, tol = %e, maxit = %d\n", k, tol, maxit);
+        tic
         [x, cflag, relres, iter, resvec] = gmres(A, b, k, tol, maxit);
+        toc
         sol_diff = abs(norm(x, inf) - 1);
         if sol_diff < best_sol_diff
             best_x = x;

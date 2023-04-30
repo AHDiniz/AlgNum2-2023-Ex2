@@ -13,7 +13,10 @@ function [best_x, best_flag, best_relres, best_iter, best_resvec, best_tol, best
     for i = 1 : numel(tols) * numel(maxits)
         tol = inputs{i,1};
         maxit = inputs{i,2};
+        printf("tol = %e, maxit = %d\n", tol, maxit);
+        tic
         [x, cflag, relres, iter, resvec] = pcg(A, b, tol, maxit);
+        toc
         sol_diff = abs(abs(norm(x, inf)) - 1);
         if sol_diff < best_sol_diff
             best_x = x;

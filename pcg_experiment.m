@@ -15,7 +15,7 @@ function pcg_experiment()
         fprintf(f, "flag = %d\n", flag);
         fprintf(f, "iterations = %d\n", iter);
         fprintf(f, "sol. norm = %f\n", norm(x, inf));
-        fprintf(f, "tol = %f\n", tol);
+        fprintf(f, "tol = %e\n", tol);
         fprintf(f, "maxit = %d\n", maxit);
         fclose(f);
 

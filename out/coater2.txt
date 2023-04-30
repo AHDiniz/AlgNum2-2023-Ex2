@@ -4,5 +4,5 @@ flag = 1
 iterations = 7500075
 sol. norm = 0.734652
 k = 75
-tol = 0.000000
+tol = 1.000000e-07
 maxit = 100000
